@@ -4,12 +4,12 @@
         <link rel="stylesheet" href="./style.css">
         <div style="display: flex;">
             <div class="column-container"> 
-                <input type="text" placeholder="Текст для попторення" id="str">
+                <input type="text" placeholder="Текст" id="str">
                 <input type="number" placeholder="Кількість повторень" id="num">
             </div>
             <div class="container">
                 <select id="select">
-                    <option>Оберіть</option>
+                    <option value="">Оберіть</option>
                     <option value="repeatStr">Повторення рядка</option>
                     <option value="count">Порахувати</option>
                 </select>
@@ -25,6 +25,7 @@
         <div class="output">
             <p id="output"></p>
         </div>
-        <script src="./script.js"></script>
+        <script type="module" src="./script.js"></script>
+        <!-- <script  src="./uiux.js"></script> -->
     </body>
 </html>
