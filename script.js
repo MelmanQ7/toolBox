@@ -1,11 +1,13 @@
 import { UI } from './uiux.js';
-import { strInput, numInput, selectElement, output } from './variables.js';
+import { strInput, numInput, selectElement, output, buttonDoIt, start, end } from './variables.js';
 import { showError } from './uiux.js';
-import { repeatString, countStr } from './doIt.js';
+import { repeatString, countStr, count } from './doIt.js';
 
 function processData() {
     const strValue = strInput.value;
     const numValue = Number(numInput.value);
+    const startValue = Number(start.value);
+    const endValue = Number(end.value);
     
     const selectValue = selectElement.value;
 
@@ -23,13 +25,24 @@ function processData() {
                 output.style.color = '';
             }
             break;
-        case "count":
+        case "countStr":
             if (!strValue) {
                 showError('Введіть тескт для підрахунку символів', "fatal")
             } else {
                 countStr(strValue);
                 output.style.color = '';
             }
+            break;
+        case "count":
+            if (endValue >= 800000 && startValue <= 0 || (startValue <= -800000 && endValue < 0) ){
+                showError('Такий розрахунок не рекомендується', "operation")
+            } else if (startValue >= 450000 && endValue <= 1000000) {
+                count(startValue, endValue);
+                output.style.color = '';
+            } else {
+            count(startValue, endValue);
+                output.style.color = '';
+        }
             break;
         case "":
             showError('Оберіть коректну операцію.', "operation");

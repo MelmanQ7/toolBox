@@ -35,3 +35,7 @@ p {
     display: flex;       /* Активує Flexbox */
     background-color: #262532;
 }
+
+/* #num, #spcSelect, #str, #end, #startFrom {
+    display: none;
+} */

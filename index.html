@@ -6,18 +6,21 @@
             <div class="column-container"> 
                 <input type="text" placeholder="Текст" id="str">
                 <input type="number" placeholder="Кількість повторень" id="num">
+                <input type="number" placeholder="Початок відліку" id="startFrom">
+                <input type="number" placeholder="Кінкць відліку" id="end">
             </div>
             <div class="container">
                 <select id="select">
                     <option value="">Оберіть</option>
                     <option value="repeatStr">Повторення рядка</option>
+                    <option value="countStr">Порахувати довжину рядка</option>
                     <option value="count">Порахувати</option>
                 </select>
                 <select id="spcSelect">
                     <option value="whith">З пробілами</option>
                     <option value="whithOut">Без пробілів</option>
                     <option value="whithComa">Через кому</option>
-                    <option>Без пробілів та через кому</option>
+                    <option>Без пробілів та через кому(формат масива)</option>
                 </select>
                 <button id="doIt">Виконати</button>
             </div>
@@ -26,6 +29,5 @@
             <p id="output"></p>
         </div>
         <script type="module" src="./script.js"></script>
-        <!-- <script  src="./uiux.js"></script> -->
     </body>
 </html>

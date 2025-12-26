@@ -4,3 +4,5 @@ export const buttonDoIt = document.getElementById('doIt');
 export const output = document.getElementById('output');
 export const selectElement = document.getElementById('select');
 export const spcSelect = document.getElementById('spcSelect');
+export const start = document.getElementById('startFrom');
+export const end = document.getElementById('end');

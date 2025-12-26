@@ -1,6 +1,4 @@
-const numInput = document.getElementById('num');
-const selectElement = document.getElementById('select');
-const spcSelect = document.getElementById('spcSelect');
+import { numInput, selectElement, spcSelect, output, strInput, start, end } from './variables.js';
 
 export function showError(str, type) {
     output.textContent = str;
@@ -11,6 +9,9 @@ export function showError(str, type) {
         case "operation":
             output.style.color = 'yellow';
             break;
+        default:
+            output.style.color = '';
+            break;
     }
 }
 
@@ -18,13 +19,32 @@ export function UI() {
     const selectValue = selectElement.value;
 
     switch (selectValue) {
+        case "repeatStr":
+            numInput.style.display = '';
+            strInput.style.display = '';
+            spcSelect.style.display = 'none';
+            start.style.display = 'none';
+            end.style.display = 'none';
+        case "countStr":
+            strInput.style.display = '';
+            // numInput.style.display = 'none';
+            spcSelect.style.display = 'none';
+            start.style.display = 'none';
+            end.style.display = 'none';
+            break;
         case "count":
             numInput.style.display = 'none';
-            spcSelect.style.display = 'none';
+            strInput.style.display = 'none';
+            spcSelect.style.display = '';
+            start.style.display = '';
+            end.style.display = '';
             break;
         default:
             numInput.style.display = '';
             spcSelect.style.display = '';
+            strInput.style.display = '';
+            end.style.display = '';
+            start.style.display = '';
             break;
     }
 }
