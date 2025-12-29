@@ -1,4 +1,4 @@
-import { numInput, selectElement, spcSelect, output, strInput, start, end } from './variables.js';
+import { numInput, selectElement, spcSelect, output, strInput, start, end, numOfLength, warning } from './variables.js';
 
 export function showError(str, type) {
     output.textContent = str;
@@ -20,31 +20,49 @@ export function UI() {
 
     switch (selectValue) {
         case "repeatStr":
-            numInput.style.display = '';
-            strInput.style.display = '';
+            warning.style.display = 'none';
             spcSelect.style.display = 'none';
             start.style.display = 'none';
             end.style.display = 'none';
+            numOfLength.style.display = 'none';
+            numInput.style.display = 'block';
+            strInput.style.display = 'block';
+            break;
         case "countStr":
-            strInput.style.display = '';
-            // numInput.style.display = 'none';
+            warning.style.display = 'none';
+            numInput.style.display = 'none';
+            numOfLength.style.display = 'none';
             spcSelect.style.display = 'none';
             start.style.display = 'none';
             end.style.display = 'none';
+            strInput.style.display = 'block';
             break;
         case "count":
+            warning.style.display = 'none';
             numInput.style.display = 'none';
             strInput.style.display = 'none';
-            spcSelect.style.display = '';
-            start.style.display = '';
-            end.style.display = '';
+            numOfLength.style.display = 'none';
+            spcSelect.style.display = 'block';
+            start.style.display = 'block';
+            end.style.display = 'block';
+            break;
+        case "genPass":
+            warning.style.display = 'none';
+            numInput.style.display = 'none';
+            spcSelect.style.display = 'none';
+            strInput.style.display = 'none';
+            end.style.display = 'none';
+            start.style.display = 'none';
+            numOfLength.style.display = 'block';
             break;
         default:
-            numInput.style.display = '';
-            spcSelect.style.display = '';
-            strInput.style.display = '';
-            end.style.display = '';
-            start.style.display = '';
+            warning.style.display = 'block';
+            numInput.style.display = 'none';
+            spcSelect.style.display = 'none';
+            strInput.style.display = 'none';
+            end.style.display = 'none';
+            start.style.display = 'none';
+            numOfLength.style.display = 'none';
             break;
     }
 }

@@ -12,9 +12,8 @@ p {
 
 .column-container {
     display: flex;
-    flex-direction: column; /* Розміщує дочірні елементи вертикально */
-    gap: 10px;           /* Додає простір між елементами (необов'язково) */
-    /* Додаткові стилі для прикладу */
+    flex-direction: column;
+    gap: 10px;
     width: 300px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -22,20 +21,19 @@ p {
 
 .container {
     float: left;
-    display: flex;       /* Активує Flexbox */
-    flex-direction: column; /* Розміщує дочірні елементи вертикально */
-    gap: 10px;           /* Додає простір між елементами (необов'язково) */
-    /* Додаткові стилі для прикладу */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     width: 300px;
     padding: 10px;
     border: 1px solid #ccc;
 }
 
 .output {
-    display: flex;       /* Активує Flexbox */
+    display: flex;
     background-color: #262532;
 }
 
-/* #num, #spcSelect, #str, #end, #startFrom {
+.hidden-element {
     display: none;
-} */
+}

@@ -4,10 +4,15 @@
         <link rel="stylesheet" href="./style.css">
         <div style="display: flex;">
             <div class="column-container"> 
-                <input type="text" placeholder="Текст" id="str">
-                <input type="number" placeholder="Кількість повторень" id="num">
-                <input type="number" placeholder="Початок відліку" id="startFrom">
-                <input type="number" placeholder="Кінкць відліку" id="end">
+                <p id="warning">Оберіть дію</p>
+                <input type="text" placeholder="Текст" id="str" class="hidden-element">
+                <input type="number" placeholder="Кількість повторень" id="num" class="hidden-element">
+                <input type="number" placeholder="Початок відліку" id="startFrom" class="hidden-element">
+                <input type="number" placeholder="Кінкць відліку" id="end" class="hidden-element">
+                <input type="number" placeholder="Довжина пароля" id="numOfLength" class="hidden-element">
+                <!-- <select>
+                    <option value="">Оберіть</option>
+                </select> -->
             </div>
             <div class="container">
                 <select id="select">
@@ -15,8 +20,9 @@
                     <option value="repeatStr">Повторення рядка</option>
                     <option value="countStr">Порахувати довжину рядка</option>
                     <option value="count">Порахувати</option>
+                    <option value="genPass">Згенерувати пароль</option>
                 </select>
-                <select id="spcSelect">
+                <select id="spcSelect" class="hidden-element">
                     <option value="whith">З пробілами</option>
                     <option value="whithOut">Без пробілів</option>
                     <option value="whithComa">Через кому</option>

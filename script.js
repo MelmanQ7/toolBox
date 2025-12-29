@@ -1,7 +1,7 @@
 import { UI } from './uiux.js';
 import { strInput, numInput, selectElement, output, buttonDoIt, start, end } from './variables.js';
 import { showError } from './uiux.js';
-import { repeatString, countStr, count } from './doIt.js';
+import { repeatString, countStr, count, genPasword } from './doIt.js';
 
 function processData() {
     const strValue = strInput.value;
@@ -44,6 +44,10 @@ function processData() {
                 output.style.color = '';
         }
             break;
+        case "genPass":
+            genPasword();
+            output.style.color = '';
+            break;
         case "":
             showError('Оберіть коректну операцію.', "operation");
             break;
@@ -52,4 +56,5 @@ function processData() {
 
 buttonDoIt.addEventListener('click', processData);
 
+UI();
 selectElement.addEventListener('change', UI);
