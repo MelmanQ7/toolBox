@@ -95,3 +95,12 @@ export function genPasword() {
     output.textContent = res.join("");
 }
 
+export function flaxFib(n, a = 0, b = 1) {
+    let res = [a, b];
+
+    for (let i = 2; i <= n; i++) {
+        res.push(res[i - 1] + res[i - 2]);
+    }
+    output.textContent = res;
+}
+

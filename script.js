@@ -1,7 +1,7 @@
 import { UI } from './uiux.js';
-import { strInput, numInput, selectElement, output, buttonDoIt, start, end } from './variables.js';
+import { strInput, numInput, selectElement, output, buttonDoIt, start, end, staps, startA, startB } from './variables.js';
 import { showError } from './uiux.js';
-import { repeatString, countStr, count, genPasword } from './doIt.js';
+import { repeatString, countStr, count, genPasword, flaxFib } from './doIt.js';
 
 function processData() {
     const strValue = strInput.value;
@@ -45,6 +45,18 @@ function processData() {
                 return;
             } else {
                 genPasword();
+                output.style.color = '';
+            }
+            break;
+        case "fib":
+            const n = Number(staps.value);
+            const a = startA.value !== "" ? Number(startA.value) : 0;
+            const b = startB.value !== "" ? Number(startB.value) : 1;
+
+            if (!n || n <= 0) {
+                showError('Введіть кількість кроків більше нуля!', "operation");
+            } else {
+                flaxFib(n, a, b); 
                 output.style.color = '';
             }
             break;
