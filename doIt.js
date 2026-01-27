@@ -1,32 +1,48 @@
+// import { showError } from "./uiux.js";
 import { spcSelect, output, allSymbols, numOfLength } from "./variables.js";
+
 export function repeatString(str, num) {
     let spcSelectValue = spcSelect.value;
-    let result = []; 
-    while (result.length < num) {
-        result.push(str);
+    let res = []; 
+    while (res.length < num) {
+        res.push(str);
     }
 
     switch (spcSelectValue) {
         case "whith":
-            output.textContent = result.join(" ");
+            output.textContent = res.join(" ");
             break;
         case "whithOut":
-            output.textContent = result.join("");
+            output.textContent = res.join("");
             break;
         case "whithComa":
-            output.textContent = result.join(", ");
+            output.textContent = res.join(", ");
             break;
         default:
-            output.textContent = result;
+            output.textContent = res;
             break;
     }
-
 }
 
 export function countStr(str) {
     let res = str.length;
     let spc = str.split(" ").length -1;
-    output.innerHTML = `Всього символів: <b>${res}</b><br>Пробілів: <b>${spc}</b>`;
+
+    const counts = { ",": 0, ".": 0, "!": 0, "?": 0};
+
+    for (let char of str) {
+        if (char in counts) {
+            counts[char]++;
+        }
+    }
+
+    output.innerHTML = `
+    Всього символів: <b>${res}</b><br>
+    Пробілів: <b>${spc}</b><br>
+    Коми: <b>${counts[","]}</b><br>
+    Крапки: <b>${counts["."]}</b><br>
+    Знаки оклику: <b>${counts["!"]}</b><br>
+    Знаки питання: <b>${counts["?"]}</b>`;
 }
 
 export function count(start, end) {
@@ -47,10 +63,12 @@ export function count(start, end) {
             output.textContent = res.join(", ");
             break;
         default:
-            output.textContent = res;
+            console.log(res);
+            output.textContent = JSON.stringify(res, null, 1);
             break;
     }
 }
+
 
 export function genPasword() {
     let pswrdLength = numOfLength.value;
@@ -76,3 +94,4 @@ export function genPasword() {
     }
     output.textContent = res.join("");
 }
+

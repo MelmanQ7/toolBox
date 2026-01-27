@@ -34,19 +34,19 @@ function processData() {
             }
             break;
         case "count":
-            if (endValue >= 800000 && startValue <= 0 || (startValue <= -800000 && endValue < 0) ){
-                showError('Такий розрахунок не рекомендується', "operation")
-            } else if (startValue >= 450000 && endValue <= 1000000) {
-                count(startValue, endValue);
-                output.style.color = '';
-            } else {
-            count(startValue, endValue);
-                output.style.color = '';
-        }
+            let sum = endValue - startValue;
+            if (sum >= 500000) { showError("Забагато", "fatal") }
+            else {count(startValue, endValue);
+                output.style.color = '';}
             break;
         case "genPass":
-            genPasword();
-            output.style.color = '';
+            if (numOfLength.value <= 0) {
+                showError('Введіть коректний текст і число більше нуля!', "fatal");
+                return;
+            } else {
+                genPasword();
+                output.style.color = '';
+            }
             break;
         case "":
             showError('Оберіть коректну операцію.', "operation");

@@ -1,4 +1,4 @@
-import { numInput, selectElement, spcSelect, output, strInput, start, end, numOfLength, warning } from './variables.js';
+import { numInput, selectElement, spcSelect, output, strInput, start, end, numOfLength, warning, startA, startB, staps} from './variables.js';
 
 export function showError(str, type) {
     output.textContent = str;
@@ -15,54 +15,27 @@ export function showError(str, type) {
     }
 }
 
+const allInputs = [numInput, strInput, spcSelect, start, end, numOfLength, staps, startA, startB];
+
 export function UI() {
     const selectValue = selectElement.value;
 
-    switch (selectValue) {
-        case "repeatStr":
-            warning.style.display = 'none';
-            spcSelect.style.display = 'none';
-            start.style.display = 'none';
-            end.style.display = 'none';
-            numOfLength.style.display = 'none';
-            numInput.style.display = 'block';
-            strInput.style.display = 'block';
-            break;
-        case "countStr":
-            warning.style.display = 'none';
-            numInput.style.display = 'none';
-            numOfLength.style.display = 'none';
-            spcSelect.style.display = 'none';
-            start.style.display = 'none';
-            end.style.display = 'none';
-            strInput.style.display = 'block';
-            break;
-        case "count":
-            warning.style.display = 'none';
-            numInput.style.display = 'none';
-            strInput.style.display = 'none';
-            numOfLength.style.display = 'none';
-            spcSelect.style.display = 'block';
-            start.style.display = 'block';
-            end.style.display = 'block';
-            break;
-        case "genPass":
-            warning.style.display = 'none';
-            numInput.style.display = 'none';
-            spcSelect.style.display = 'none';
-            strInput.style.display = 'none';
-            end.style.display = 'none';
-            start.style.display = 'none';
-            numOfLength.style.display = 'block';
-            break;
-        default:
-            warning.style.display = 'block';
-            numInput.style.display = 'none';
-            spcSelect.style.display = 'none';
-            strInput.style.display = 'none';
-            end.style.display = 'none';
-            start.style.display = 'none';
-            numOfLength.style.display = 'none';
-            break;
+    // Ховаємо все одним махом
+    allInputs.forEach(el => {
+        if (el) el.style.display = 'none'; // Перевірка el на випадок, якщо якийсь id не знайдено
+    });
+    warning.style.display = 'block';
+
+    const visibilityMap = {
+        "repeatStr": [numInput, strInput],
+        "countStr":  [strInput],
+        "count":     [spcSelect, start, end],
+        "genPass":   [numOfLength],
+        "fib": [staps, startA, startB] // Твоя "незвичайна" реалізація
+    };
+
+    if (visibilityMap[selectValue]) {
+        warning.style.display = 'none';
+        visibilityMap[selectValue].forEach(el => el.style.display = 'block');
     }
 }
