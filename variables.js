@@ -13,6 +13,8 @@ export const choese = document.getElementById('choese');
 export const staps = document.getElementById('staps');
 export const startA = document.getElementById('startA');
 export const startB = document.getElementById('startB');
+export const ite = document.getElementById('ite');
+export const checkbox = document.getElementById('checkbox');
 
 // Self-made variables
 export const allSymbols = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890-=_+[];',./{}:*\"*~!@#$%^&*()№";

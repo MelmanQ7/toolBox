@@ -1,5 +1,5 @@
 import { UI } from './uiux.js';
-import { strInput, numInput, selectElement, output, buttonDoIt, start, end, staps, startA, startB } from './variables.js';
+import { strInput, numInput, selectElement, output, buttonDoIt, start, end, staps, startA, startB, ite } from './variables.js';
 import { showError } from './uiux.js';
 import { repeatString, countStr, count, genPasword, flaxFib } from './doIt.js';
 
@@ -49,11 +49,15 @@ function processData() {
             }
             break;
         case "fib":
-            const n = Number(staps.value);
+            let n = Number(staps.value);
             const a = startA.value !== "" ? Number(startA.value) : 0;
             const b = startB.value !== "" ? Number(startB.value) : 1;
 
-            if (!n || n <= 0) {
+            if (ite.checked) { 
+                n += 2;
+            }
+
+            if (staps.value <= 0) {
                 showError('Введіть кількість кроків більше нуля!', "operation");
             } else {
                 flaxFib(n, a, b); 

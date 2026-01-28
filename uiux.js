@@ -1,4 +1,4 @@
-import { numInput, selectElement, spcSelect, output, strInput, start, end, numOfLength, warning, startA, startB, staps} from './variables.js';
+import { numInput, selectElement, spcSelect, output, strInput, start, end, numOfLength, warning, staps, startA, startB, ite, checkbox} from './variables.js';
 
 export function showError(str, type) {
     output.textContent = str;
@@ -15,7 +15,7 @@ export function showError(str, type) {
     }
 }
 
-const allInputs = [numInput, strInput, spcSelect, start, end, numOfLength, staps, startA, startB];
+const allInputs = [numInput, strInput, spcSelect, start, end, numOfLength, staps, startA, startB, checkbox];
 
 export function UI() {
     const selectValue = selectElement.value;
@@ -31,7 +31,7 @@ export function UI() {
         "countStr":  [strInput],
         "count":     [spcSelect, start, end],
         "genPass":   [numOfLength],
-        "fib": [staps, startA, startB] // Твоя "незвичайна" реалізація
+        "fib": [staps, startA, startB, checkbox] // Твоя "незвичайна" реалізація
     };
 
     if (visibilityMap[selectValue]) {
