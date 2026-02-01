@@ -95,7 +95,7 @@ export function genPasword() {
 }
 
 export function flaxFib(n, a = 0, b = 1) {
-    let res = [BigInt(a), BigInt(b)];
+    let res = [a, b];
     let isBig = false;
 
     for (let i = 2; i <= n; i++) {
