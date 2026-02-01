@@ -1,4 +1,3 @@
-// import { showError } from "./uiux.js";
 import { spcSelect, output, allSymbols, numOfLength } from "./variables.js";
 
 export function repeatString(str, num) {
@@ -96,11 +95,24 @@ export function genPasword() {
 }
 
 export function flaxFib(n, a = 0, b = 1) {
-    let res = [a, b];
+    let res = [BigInt(a), BigInt(b)];
+    let isBig = false;
 
     for (let i = 2; i <= n; i++) {
-        res.push(res[i - 1] + res[i - 2]);
+        let next = res[i - 1] + res[i - 2];
+
+        if (!isBig && next > 1e300) {
+            isBig = true;
+            res = res.map(num => BigInt(num));
+            next = res[i - 1] + res[i - 2];
+        }
+
+        res.push(next);
     }
+
+    output.style.wordBreak = "break-all"; 
+    output.style.overflowWrap = "break-word";
+    output.style.whiteSpace = "normal";
+
     output.innerHTML = `${res[n]}<br>[ ${res.join(", ")} ]`;
 }
-
