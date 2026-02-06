@@ -74,3 +74,8 @@ buttonDoIt.addEventListener('click', processData);
 
 UI();
 selectElement.addEventListener('change', UI);
+
+localStorage.setItem("a", "1");
+localStorage.setItem("b", "2");
+let str = localStorage.getItem("a");
+output.textContent = str;

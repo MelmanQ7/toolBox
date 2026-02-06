@@ -1,24 +1,24 @@
-function myMap(array, callback) {
-  const result = []; // Створюємо новий порожній масив
-
-  // 2. Проходимо циклом по кожному елементу вхідного масиву
-  for (let i = 0; i < array.length; i++) {
-    // 3. ВИКЛИКАЄМО callback і передаємо йому: елемент, індекс, весь масив
-    const newValue = callback(array[i], i, array); 
-    
-    // 4. Додаємо те, що повернув callback, у наш новий масив
-    result.push(newValue);
-  }
-
-  // 5. Повертаємо готовий новий масив
-  return result;
+async function getUsdRate() {
+    try {
+        // Ми кажемо програмі: "Зачекай (await), поки банк відповість"
+        const response = await fetch('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=USD&json');
+        const responseEUR = await fetch('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?&json');
+        
+        // Тепер чекаємо, поки текст перетвориться на зрозумілий JS об'єкт
+        const data = await response.json();
+        const dataEUR = await responseEUR.json();
+        
+        // Дані прийшли у вигляді масиву, беремо перший елемент
+        const rate = data[0].rate;
+        // const day = data[0].exchangedate;
+        
+        console.log(`Курс долара сьогодні ${data[0].exchangedate}: ${rate} грн ${dataEUR.rate}`);
+        console.log(data);
+        console.log(dataEUR);
+        return rate;
+    } catch (error) {
+        console.error("Ой! Щось пішло не так з API:\n", error);
+    }
 }
 
-const numbers = [1, 2, 3];
-
-// Пишемо логіку трансформації прямо тут (це і є наш callback)
-const doubled = myMap(numbers, function(item) {
-  return item * 2; // Те, що ми повертаємо, потрапить у newValue вище
-});
-
-console.log(doubled);
+getUsdRate();
