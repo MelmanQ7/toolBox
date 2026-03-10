@@ -1,5 +1,0 @@
-{
-    "scripts": {
-        "build": "esbuild ./script.js --bundle --minify --outfile=dist/script.min.js"
-    }
-}
