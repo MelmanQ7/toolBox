@@ -1,0 +1,8 @@
+{
+  "name": "my-cool-project",
+  "version": "1.0.0",
+  "description": "Static site",
+  "scripts": {
+    "start": "echo 'No start script needed for static site'"
+  }
+}
