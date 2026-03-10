@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Scheduler test</title>
+</head>
+<body>
+
+<h3>Планувальник</h3>
+
+<button id="enable">🔔 Дозволити сповіщення</button>
+<button id="start">▶ Старт</button>
+<button id="stop">⏹ Стоп</button>
+
+<script>
+let timerId = null;
+let stopped = false;
+
+/* -------- Service Worker -------- */
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js');
+}
+
+/* -------- Дозвіл (ТІЛЬКИ по кліку) -------- */
+document.getElementById('enable').onclick = async () => {
+  const res = await Notification.requestPermission();
+  console.log('Permission:', res);
+};
+
+/* -------- confirm через notification -------- */
+function confirmNotification() {
+  return new Promise(async resolve => {
+
+    if (Notification.permission !== 'granted') {
+      console.warn('Немає дозволу');
+      resolve(false);
+      return;
+    }
+
+    const reg = await navigator.serviceWorker.ready;
+
+    reg.showNotification('Перерва', {
+      body: 'Продовжуємо?',
+      actions: [
+        { action: 'yes', title: 'Так' },
+        { action: 'no', title: 'Ні' }
+      ]
+    });
+
+    navigator.serviceWorker.addEventListener(
+      'message',
+      e => resolve(e.data.answer),
+      { once: true }
+    );
+  });
+}
+
+/* -------- Планувальник -------- */
+document.getElementById('start').onclick = () => {
+  stopped = false;
+
+  timerId = setTimeout(async () => {
+    if (stopped) return;
+
+    const ok = await confirmNotification();
+
+    if (ok && !stopped) {
+      setTimeout(() => {
+        console.log('✅ Дія виконана');
+      }, 1000);
+    } else {
+      console.log('❌ Відмінено');
+    }
+
+  }, 5000);
+};
+
+document.getElementById('stop').onclick = () => {
+  stopped = true;
+  clearTimeout(timerId);
+  console.log('⏹ Зупинено');
+};
+</script>
+
+</body>
+</html>

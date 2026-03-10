@@ -1,30 +1,37 @@
-import { spcSelect, output, allSymbols, numOfLength, myMap } from "./variables.js";
+import { spcSelect, output, allSymbols, numOfLength, myMap, cc, loadProjectInfo } from "./variables.js";
+import { outputData } from "./script.js";
+import { showError } from "./uiux.js";
 
-export function repeatString(str, num) {
-    let spcSelectValue = spcSelect.value;
+export function repeatString(str, num, spc) {
     let res = []; 
     while (res.length < num) {
         res.push(str);
     }
 
-    switch (spcSelectValue) {
+    let out;
+
+    switch (spc) {
         case "whith":
-            output.textContent = res.join(" ");
-            break;
+            out = res.join(" ");
+            return out;
         case "whithOut":
-            output.textContent = res.join("");
-            break;
+            out = res.join("");
+            return out;
         case "whithComa":
-            output.textContent = res.join(", ");
-            break;
+            out = res.join(", ");
+            return out;
         default:
-            output.textContent = res;
-            break;
+            out = JSON.stringify(res, null, 1);
+            return out;
     }
+    // outputData(out);
 }
 
 export function countStr(str) {
-    let res = str.length;
+    const segmeter = new Intl.Segmenter('uk', { granularity: 'grapheme'});
+
+    let res = [...segmeter.segment(str)].length;
+
     let spc = str.split(" ").length -1;
 
     const counts = { ",": 0, ".": 0, "!": 0, "?": 0};
@@ -35,7 +42,7 @@ export function countStr(str) {
         }
     }
 
-    output.innerHTML = `
+    return `
     Всього символів: <b>${res}</b><br>
     Пробілів: <b>${spc}</b><br>
     Коми: <b>${counts[","]}</b><br>
@@ -47,54 +54,65 @@ export function countStr(str) {
 export function count(start, end) {
     let spcSelectValue = spcSelect.value;
     let res = []; 
+    let out;
         for (let i = start; i <= end; i++){
             res.push(i);
         };
 
     switch (spcSelectValue) {
         case "whith":
-            output.textContent = res.join(" ");
+            out = res.join(" ");
             break;
         case "whithOut":
-            output.textContent = res.join("");
+            out = res.join("");
             break;
         case "whithComa":
-            output.textContent = res.join(", ");
+            out = res.join(", ");
             break;
         default:
             console.log(res);
-            output.textContent = JSON.stringify(res, null, 1);
+            out = JSON.stringify(res, null, 1);
             break;
     }
+    output.style.wordBreak = "break-all"; 
+    // output.style.overflowWrap = "break-word";
+    // output.style.whiteSpace = "normal";
+    return out;
 }
 
 
-export function genPasword() {
-    let pswrdLength = numOfLength.value;
+export function genPasword(pswrdLength) {
     let current = Date.now();
+    let pasword = [];
     let res = [];
-    for (let i = 0; i < pswrdLength; i++) {
-    let randomNum;
 
-    const m = 2147483648;
-    const a = 1103515245;
-    const c = 12345;
+    while (res.length < 10) {
+        for (let i = 0; i < pswrdLength; i++) {
+        let randomNum;
 
-    current = ( a * current + c) % m;
-    randomNum = current / m;
-    const min = 0;
-    let max = allSymbols.length;
-    let range = max - min + 1;
-    let randomInt = Math.floor(randomNum * range) + min;
-    let index = randomInt;
-    
-        let arr = allSymbols[index];
-        res.push(arr);
+        const m = 2147483648;
+        const a = 1103515245;
+        const c = 12345;
+
+        current = ( a * current + c) % m;
+        randomNum = current / m;
+        const min = 0;
+        let max = allSymbols.length;
+        let range = max - min;
+        let randomInt = Math.floor(randomNum * range) + min;
+        let index = randomInt;
+        
+            let arr = allSymbols[index];
+            pasword.push(arr);
+        }
+        res.push(pasword.join(""));
+        pasword = [];
     }
-    output.textContent = res.join("");
+
+    return `${res.join("<br>")}`;
 }
 
-export function flaxFib(n, a = 0, b = 1) {
+export function flaxFib(n, a, b) {
     let res = [a, b];
     let isBig = false;
 
@@ -103,7 +121,7 @@ export function flaxFib(n, a = 0, b = 1) {
 
         if (!isBig && next > 1e300) {
             isBig = true;
-            res = myMap(num => BigInt(num));
+            res = myMap(res, num => BigInt(num));
             next = res[i - 1] + res[i - 2];
         }
 
@@ -114,5 +132,57 @@ export function flaxFib(n, a = 0, b = 1) {
     output.style.overflowWrap = "break-word";
     output.style.whiteSpace = "normal";
 
-    output.innerHTML = `${res[n]}<br>[ ${res.join(", ")} ]`;
+    return `${res[n]}<br>[ ${res.join(", ")} ]`;
+}
+
+export async function getRate(user) {
+    try {
+        const response = await fetch('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?&json');
+
+        if (!response.ok) {
+            // Замість alert краще викидати помилку, щоб вона потрапила в catch
+            throw new Error(`Сервер не доступний: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        // Використовуємо метод find для чистоти коду
+        const currency = data.find(item => item.cc === user);
+
+        if (currency) {
+            return `Ціна ${currency.txt}(${currency.cc}): ${currency.rate} ₴(UAH)`;
+        } else {
+            showError(`Валюту ${user} не знайдено`, "operation");
+            return null; // Повертаємо null, щоб викликаюча функція знала, що результату немає
+        }
+        
+    } catch (error) {
+        showError(error, "operation");
+        console.error(error);
+        return null;
+    }
+}
+
+export async function comandLine(comm) {
+    let info;
+    const date = new Date().toLocaleDateString();
+
+    try {
+        info = await loadProjectInfo();
+    } catch (err) {
+        console.error("Щось пішло не так:", err);
+    }
+
+    switch (comm) {
+        case "help":
+            return `
+        <b>${info.name.toUpperCase()}</b> - ${info.description}<br>
+        ----------------------------<br>
+        help - список команд<br>
+        version - версія додатку<br>
+        author - хто це створив
+    `;
+        case "version":
+            return `Версія: ${info.version} | Дата: ${date} `;
+    }
 }

@@ -15,6 +15,9 @@ export const startA = document.getElementById('startA');
 export const startB = document.getElementById('startB');
 export const ite = document.getElementById('ite');
 export const checkbox = document.getElementById('checkbox');
+export const term = document.getElementById('term');
+export const cmdStr = document.getElementById('cmd-str');
+export const termialLine = document.querySelector('.termial-line');
 export function myMap(array, callback) {
   const result = []; // Створюємо новий порожній масив
 
@@ -30,7 +33,22 @@ export function myMap(array, callback) {
   // 5. Повертаємо готовий новий масив
   return result;
 };
-
+export const cc = document.getElementById('cc');
+export const listContainer = document.getElementById('storage-list');
 // Self-made variables
 export const allSymbols = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890-=_+[];',./{}:*\"*~!@#$%^&*()№";
-                        // QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890-=_+[];',./{}:*"*~!@#$%^&*()№
+
+export const modal = document.querySelector('.myModal');
+export const openBtn = document.querySelector('#openModalBtn');
+export const closeBtn = document.querySelector('#closeModal');
+
+export async function loadProjectInfo() {
+    try {
+        const response = await fetch('./package.json');
+        const data = await response.json();
+        
+        return data;
+    } catch (error) {
+        console.error("Помилка завантаження конфігу:", error);
+    }
+}
